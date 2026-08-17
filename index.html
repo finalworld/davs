@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+  <meta name="theme-color" content="#bfe7d0">
+  <title>Davina & Jimmy: Spenatstorm</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main id="app">
+    <canvas id="game" aria-label="Spelplan"></canvas>
+
+    <section id="hud" class="hidden" aria-live="polite">
+      <div class="top-hud-shell">
+        <div class="top-hud-main">
+          <div class="top-card davina-top-card">
+            <div class="davina-mini-avatar" aria-hidden="true">
+              <span class="mini-hair"></span>
+              <span class="mini-face"></span>
+              <span class="mini-shirt"></span>
+            </div>
+            <div class="davina-top-info">
+              <div class="hp-readout">❤️ <b id="hpText">100/100</b></div>
+              <div class="hp-track"><i id="hpBar"></i></div>
+              <div class="level-readout">⭐ Nivå <b id="levelText">1</b></div>
+            </div>
+          </div>
+
+          <div class="top-card run-top-card">
+            <div class="run-meta">
+              <span>⏱ <b id="timeText">0:00</b></span>
+              <span>🌿 <b id="killText">0</b> besegrade</span>
+            </div>
+            <div class="xp-track"><div id="xpBar"></div><span id="xpText">0 / 6 erfarenhet</span></div>
+          </div>
+
+          <div class="top-card jimmy-top-card">
+            <div class="jimmy-mini">🐶</div>
+            <div class="jimmy-top-info">
+              <b>Jimmy</b>
+              <small id="jimmyText">Skall redo!</small>
+              <div class="jimmy-cool"><i id="jimmyBar"></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="top-hud-actions">
+          <div class="skill-slot compact-skill">
+            <span class="slot-icon">🌿</span>
+            <span class="slot-name">Spenatstorm</span>
+            <small>Auto</small>
+          </div>
+          <div class="skill-slot compact-skill">
+            <span class="slot-icon">✨</span>
+            <span class="slot-name">Nivåval</span>
+            <small>3 val</small>
+          </div>
+          <div class="skill-slot compact-skill jimmy-action">
+            <span class="slot-icon">🐶</span>
+            <span class="slot-name">Skall</span>
+            <small>Auto</small>
+          </div>
+          <button id="pauseBtn" class="hud-square" aria-label="Pausa" title="Pausa">⏸</button>
+          <button id="settingsBtn" class="hud-square" aria-label="Inställningar" title="Inställningar">⚙️</button>
+          <button id="fullscreenBtn" class="hud-square" aria-label="Fullskärm" title="Fullskärm">⛶</button>
+        </div>
+      </div>
+      <div id="serverBadge" class="server-badge hud-save">💾 Lokal topplista</div>
+    </section>
+
+    <section id="startScreen" class="overlay show">
+      <div class="card start-card">
+        <div class="logo-mark">🌿🐶✨</div>
+        <h1>Davina & Jimmy<br><span>Spenatstorm</span></h1>
+        <p class="lead">Överlev så länge du kan. Davina kastar automatiskt, Jimmy skäller bort fiender och allt som ser ut som blod är förstås… spenat.</p>
+
+        <div class="name-box">
+          <label for="nameInput">Ditt visningsnamn</label>
+          <div class="name-row">
+            <input id="nameInput" maxlength="16" autocomplete="off" placeholder="2–16 tecken" aria-describedby="nameHelp">
+            <button id="confirmNameBtn">Bekräfta namn</button>
+          </div>
+          <button id="startBtn" class="primary" disabled>Starta spelomgång</button>
+          <small id="nameHelp">Bokstäver, siffror, mellanslag, - och _ fungerar.</small>
+          <div id="nameStatus" class="status-line"></div>
+        </div>
+
+
+        <div class="instructions">
+          <div><b>🕹 Dator</b><span>WASD eller piltangenter</span></div>
+          <div><b>👆 Mobil</b><span>Styr med spaken nere till vänster</span></div>
+          <div><b>✨ Anfall</b><span>Davina väljer mål och anfaller själv</span></div>
+          <div><b>🐶 Jimmy</b><span>Skäller automatiskt och drar in erfarenhet</span></div>
+        </div>
+
+        <div id="startServerInfo" class="notice">Topplistan sparas lokalt på den här enheten.</div>
+
+        <details class="leader-details" open>
+          <summary>🏆 Lokal topplista</summary>
+          <div id="startLeaderboard" class="leaderboard"></div>
+        </details>
+      </div>
+    </section>
+
+    <section id="upgradeScreen" class="overlay">
+      <div class="card upgrade-card">
+        <div class="spark">✨ NIVÅ <span id="upgradeLevel">2</span> ✨</div>
+        <h2>Välj en förbättring</h2>
+        <p>Spelet är pausat medan du väljer.</p>
+        <div id="upgradeChoices" class="upgrade-grid"></div>
+      </div>
+    </section>
+
+    <section id="settingsScreen" class="overlay">
+      <div class="card small-card settings-card">
+        <h2>⚙️ Inställningar</h2>
+        <div class="settings-row">
+          <div><b>Ljud</b><small>Slå av eller på spelets ljudeffekter.</small></div>
+          <button id="settingsSoundBtn" class="settings-toggle">🔊 På</button>
+        </div>
+        <div class="settings-row joystick-setting">
+          <div><b>Styrspak på mobil</b><small>Välj sida längst ner på skärmen.</small></div>
+          <div class="segmented">
+            <button id="joyLeftBtn" class="segment active">Vänster</button>
+            <button id="joyRightBtn" class="segment">Höger</button>
+          </div>
+        </div>
+        <button id="closeSettingsBtn" class="primary">Stäng</button>
+      </div>
+    </section>
+
+    <section id="pauseScreen" class="overlay">
+      <div class="card small-card">
+        <h2>⏸ Paus</h2>
+        <p>Davina och Jimmy väntar snällt.</p>
+        <button id="resumeBtn" class="primary">Fortsätt</button>
+        <button id="quitBtn" class="secondary">Avsluta spelomgång</button>
+      </div>
+    </section>
+
+    <section id="resultScreen" class="overlay">
+      <div class="card result-card">
+        <div class="logo-mark">🌿💥🐶</div>
+        <h2>Spenat överallt!</h2>
+        <div class="big-time" id="resultTime">0:00</div>
+        <div class="result-stats">
+          <div><span>Nivå</span><b id="resultLevel">1</b></div>
+          <div><span>Besegrade</span><b id="resultKills">0</b></div>
+        </div>
+        <div>
+          <h3>Dina förbättringar</h3>
+          <div id="resultSkills" class="skill-summary"></div>
+        </div>
+        <div id="saveStatus" class="notice">Sparar resultat lokalt…</div>
+        <div id="rankStatus" class="rank-status"></div>
+        <h3>🏆 Topplista</h3>
+        <div id="resultLeaderboard" class="leaderboard"></div>
+        <button id="againBtn" class="primary">Ny spelomgång</button>
+      </div>
+    </section>
+
+    <div id="joystick" class="joystick hidden" aria-hidden="true">
+      <div id="joyKnob"></div>
+    </div>
+
+    <div id="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
