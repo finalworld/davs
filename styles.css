@@ -562,3 +562,21 @@ button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
 #closeSettingsBtn{margin-top:16px}
 .joystick.joy-right{left:auto!important;right:max(20px,env(safe-area-inset-right))!important}
 @media(max-width:720px){.joystick.joy-right{left:auto!important;right:max(16px,env(safe-area-inset-right))!important}.settings-row{align-items:flex-start;flex-direction:column}.segmented{width:100%}.segmented .segment{flex:1}}
+
+/* Korrekt toppmarginal på startskärmen */
+#startScreen {
+  align-items: flex-start !important;
+  overflow-y: auto !important;
+  padding-top: max(42px, calc(env(safe-area-inset-top) + 28px)) !important;
+  padding-bottom: 28px !important;
+}
+
+#startScreen .start-card {
+  margin-top: 0 !important;
+}
+
+@media (max-width: 720px) {
+  #startScreen {
+    padding-top: max(24px, calc(env(safe-area-inset-top) + 16px)) !important;
+  }
+}
