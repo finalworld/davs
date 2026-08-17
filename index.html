@@ -12,45 +12,58 @@
     <canvas id="game" aria-label="Spelplan"></canvas>
 
     <section id="hud" class="hidden" aria-live="polite">
-      <div class="bottom-hud-shell">
-        <div class="orb-wrap hp-orb-wrap" title="Davinas hälsa">
-          <div class="orb gargoyle-orb hp-orb">
-            <div id="hpBar" class="orb-liquid hp-liquid"></div>
-            <div class="orb-gloss"></div>
-            <strong id="hpText">100/100</strong>
-          </div>
-          <span class="orb-label">DAVINA</span>
-        </div>
-
-        <div class="hud-center-panel">
-          <div class="hud-meta">
-            <span>⭐ Nivå <b id="levelText">1</b></span>
-            <span>⏱ <b id="timeText">0:00</b></span>
-            <span>🌿 <b id="killText">0</b> besegrade</span>
-          </div>
-          <div class="xp-track"><div id="xpBar"></div><span id="xpText">0 / 6 erfarenhet</span></div>
-          <div class="skill-belt" aria-label="Aktiva funktioner">
-            <div class="skill-slot jimmy-slot">
-              <span class="slot-icon jimmy-face">🐶</span>
-              <span class="slot-name">Jimmy</span>
-              <div class="jimmy-cool"><i id="jimmyBar"></i></div>
-              <small id="jimmyText">Skall redo!</small>
+      <div class="top-hud-shell">
+        <div class="top-hud-main">
+          <div class="top-card davina-top-card">
+            <div class="davina-mini-avatar" aria-hidden="true">
+              <span class="mini-hair"></span>
+              <span class="mini-face"></span>
+              <span class="mini-shirt"></span>
             </div>
-            <div class="skill-slot"><span class="slot-icon">🌿</span><span class="slot-name">Spenat</span><small>Auto</small></div>
-            <div class="skill-slot"><span class="slot-icon">✨</span><span class="slot-name">Nivåval</span><small>3 val</small></div>
-            <button id="pauseBtn" class="hud-square" aria-label="Pausa">⏸</button>
-            <button id="soundBtn" class="hud-square" aria-label="Ljud av eller på">🔊</button>
-            <button id="fullscreenBtn" class="hud-square" aria-label="Fullskärm" title="Fullskärm">⛶</button>
+            <div class="davina-top-info">
+              <div class="hp-readout">❤️ <b id="hpText">100/100</b></div>
+              <div class="hp-track"><i id="hpBar"></i></div>
+              <div class="level-readout">⭐ Nivå <b id="levelText">1</b></div>
+            </div>
+          </div>
+
+          <div class="top-card run-top-card">
+            <div class="run-meta">
+              <span>⏱ <b id="timeText">0:00</b></span>
+              <span>🌿 <b id="killText">0</b> besegrade</span>
+            </div>
+            <div class="xp-track"><div id="xpBar"></div><span id="xpText">0 / 6 erfarenhet</span></div>
+          </div>
+
+          <div class="top-card jimmy-top-card">
+            <div class="jimmy-mini">🐶</div>
+            <div class="jimmy-top-info">
+              <b>Jimmy</b>
+              <small id="jimmyText">Skall redo!</small>
+              <div class="jimmy-cool"><i id="jimmyBar"></i></div>
+            </div>
           </div>
         </div>
 
-        <div class="orb-wrap xp-orb-wrap" title="Erfarenhet">
-          <div class="orb gargoyle-orb xp-orb">
-            <div id="xpOrbFill" class="orb-liquid xp-liquid"></div>
-            <div class="orb-gloss"></div>
-            <strong id="xpOrbText">0%</strong>
+        <div class="top-hud-actions">
+          <div class="skill-slot compact-skill">
+            <span class="slot-icon">🌿</span>
+            <span class="slot-name">Spenatstorm</span>
+            <small>Auto</small>
           </div>
-          <span class="orb-label">ERFARENHET</span>
+          <div class="skill-slot compact-skill">
+            <span class="slot-icon">✨</span>
+            <span class="slot-name">Nivåval</span>
+            <small>3 val</small>
+          </div>
+          <div class="skill-slot compact-skill jimmy-action">
+            <span class="slot-icon">🐶</span>
+            <span class="slot-name">Skall</span>
+            <small>Auto</small>
+          </div>
+          <button id="pauseBtn" class="hud-square" aria-label="Pausa" title="Pausa">⏸</button>
+          <button id="soundBtn" class="hud-square" aria-label="Ljud av eller på" title="Ljud">🔊</button>
+          <button id="fullscreenBtn" class="hud-square" aria-label="Fullskärm" title="Fullskärm">⛶</button>
         </div>
       </div>
       <div id="serverBadge" class="server-badge hud-save">💾 Lokal topplista</div>

@@ -313,7 +313,7 @@ function killEnemy(e) {
 function spinachBurst(x,y,count=10,scale=1){
   for(let i=0;i<count;i++){const a=Math.random()*6.28,sp=rand(40,180)*scale;state.particles.push({x,y,vx:Math.cos(a)*sp,vy:Math.sin(a)*sp,life:rand(.35,.9),max:1,size:rand(3,8)*scale,rot:Math.random()*6.28,leaf:Math.random()<.45,color:choose(['#5fa66f','#7fbe72','#9dce7b','#4f9275'])});}
 }
-function popup(x,y,text,color='#3d4051'){state.popups.push({x,y,text,color,life:1});}
+function popup(x,y,text,color='#3d4051'){ showToast(text); }
 
 
 function spawnHealingSpinach() {
@@ -420,7 +420,7 @@ function update(dt) {
   for(const q of state.particles){q.x+=q.vx*dt;q.y+=q.vy*dt;q.vx*=Math.pow(.08,dt);q.vy*=Math.pow(.08,dt);q.vy+=65*dt;q.life-=dt;q.rot+=dt*2;}
   state.particles=state.particles.filter(q=>q.life>0);
   for(const r of state.rings)r.life-=dt;state.rings=state.rings.filter(r=>r.life>0);
-  for(const pop of state.popups){pop.y-=28*dt;pop.life-=dt;}state.popups=state.popups.filter(p=>p.life>0);
+  state.popups.length=0;
 
   state.camera.x += (p.x-state.camera.x)*Math.min(1,dt*7);state.camera.y += (p.y-state.camera.y)*Math.min(1,dt*7);
   updateHud();heartbeat();
@@ -431,7 +431,7 @@ function updateHud(){
   const p=state.player;
   const hpPct=clamp(p.hp/p.maxHp,0,1);
   const xpPct=clamp(p.xp/p.xpNeed,0,1);
-  ui.hpBar.style.height=`${hpPct*100}%`;
+  ui.hpBar.style.width=`${hpPct*100}%`;
   ui.hpText.textContent=`${Math.ceil(p.hp)}/${p.maxHp}`;
   ui.levelText.textContent=p.level;
   ui.timeText.textContent=formatTime(state.elapsedMs);

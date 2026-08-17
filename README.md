@@ -18,3 +18,7 @@ Topplistan sparas lokalt i webbläsarens localStorage på den enhet där spelet 
 
 ## v5 – monster per minut
 Varje hel minut börjar en ny monsterfamilj spawna med nytt utseende. Fiender som redan finns på planen behåller sin gamla typ tills de besegras. Senare minuter ger försiktigt mer hälsa, skada, fart och större grupper. Från minut 3 kan vissa monster skjuta långsamma projektiler. Kayvan-reglerna som tunnar ut småfiender under bosskamp finns kvar.
+
+
+## v7 – mobil HUD
+HUD:en är flyttad till toppen och gjord betydligt mindre. Hälsa, nivå, tid, besegrade, erfarenhet och Jimmy ligger i en kompakt toppanel. Paus, ljud och fullskärm har tydligare knappar. Alla korta spelmeddelanden visas precis under HUD:en. Nedre delen av skärmen lämnas fri för den virtuella styrspaken.
