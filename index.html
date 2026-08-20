@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="sv">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#160d12">
+<title>SANJAS MÖRKA KLASSIKER</title>
+<style>
+:root{
+  --ink:#f7efe4; --muted:#c9b9aa; --wine:#8f2436; --wine2:#bb314b;
+  --gold:#d3a85c; --paper:#e8dccb; --night:#120b10; --panel:#1c1118;
+  --line:rgba(232,220,203,.16); --shadow:0 24px 80px rgba(0,0,0,.45);
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;background:
+radial-gradient(circle at 20% 0%,rgba(143,36,54,.17),transparent 31rem),
+radial-gradient(circle at 100% 40%,rgba(211,168,92,.08),transparent 35rem),
+#10090e;color:var(--ink);font-family:Georgia, 'Times New Roman', serif}
+body{min-height:100vh}
+button,a{font:inherit}
+button{cursor:pointer}
+.shell{width:min(1160px,calc(100% - 28px));margin:auto;padding:28px 0 56px}
+header{text-align:center;padding:18px 8px 28px}
+.kicker{font:700 12px/1.2 ui-sans-serif,system-ui,sans-serif;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+h1{font-size:clamp(38px,7vw,82px);line-height:.92;margin:13px 0 16px;letter-spacing:-.045em}
+h1 span{color:#d14b60}
+.lead{max-width:740px;margin:0 auto;color:var(--muted);font:500 16px/1.6 ui-sans-serif,system-ui,sans-serif}
+.controls{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin:25px 0 26px}
+#randomBtn{
+  border:0;border-radius:999px;color:white;background:linear-gradient(180deg,#c83b55,#8e2034);
+  box-shadow:0 11px 34px rgba(187,49,75,.28), inset 0 1px rgba(255,255,255,.25);
+  padding:19px 31px;font:900 18px/1 ui-sans-serif,system-ui,sans-serif;letter-spacing:.02em;
+  transform:translateZ(0);transition:.16s ease;min-width:min(92vw,440px)
+}
+#randomBtn:hover{transform:translateY(-2px);filter:brightness(1.06)}
+#randomBtn:active{transform:translateY(1px) scale(.99)}
+.smallBtn{border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.035);color:var(--muted);padding:12px 17px;font:700 13px ui-sans-serif,system-ui,sans-serif}
+.smallBtn.active{border-color:rgba(211,168,92,.45);color:var(--gold);background:rgba(211,168,92,.08)}
+.card{
+  position:relative;overflow:hidden;display:grid;grid-template-columns:minmax(220px,330px) 1fr;gap:0;
+  border:1px solid var(--line);border-radius:28px;background:rgba(28,17,24,.9);box-shadow:var(--shadow);
+  min-height:560px
+}
+.coverWrap{position:relative;min-height:560px;background:#25161e;overflow:hidden}
+.coverBlur{position:absolute;inset:-30px;background-size:cover;background-position:center;filter:blur(28px) brightness(.35);opacity:.55;transform:scale(1.2)}
+.coverShade{position:absolute;inset:0;background:linear-gradient(90deg,transparent 55%,rgba(28,17,24,.95)),linear-gradient(0deg,rgba(0,0,0,.5),transparent 55%)}
+.cover{
+  position:absolute;width:min(74%,245px);aspect-ratio:2/3;object-fit:cover;border-radius:8px;
+  left:50%;top:50%;transform:translate(-50%,-50%);
+  box-shadow:0 25px 55px rgba(0,0,0,.55);background:#2b1b22;border:1px solid rgba(255,255,255,.12)
+}
+.coverFallback{position:absolute;width:min(74%,245px);aspect-ratio:2/3;left:50%;top:50%;transform:translate(-50%,-50%);border-radius:8px;background:
+linear-gradient(145deg,#5c1b2a,#191017 70%);box-shadow:0 25px 55px rgba(0,0,0,.55);display:flex;align-items:center;justify-content:center;text-align:center;padding:26px;border:1px solid rgba(255,255,255,.12)}
+.coverFallback b{font-size:23px;line-height:1.05}.coverFallback small{display:block;margin-top:14px;color:#d8bfc4;font:700 12px ui-sans-serif,system-ui,sans-serif;letter-spacing:.1em}
+.info{padding:clamp(28px,5vw,58px);display:flex;flex-direction:column;justify-content:center}
+.eyebrow{display:flex;gap:9px;align-items:center;flex-wrap:wrap;color:var(--gold);font:800 12px ui-sans-serif,system-ui,sans-serif;letter-spacing:.11em;text-transform:uppercase}
+.dot{width:4px;height:4px;border-radius:50%;background:currentColor;opacity:.7}
+.title{font-size:clamp(35px,5.2vw,66px);line-height:.98;margin:13px 0 10px;letter-spacing:-.04em}
+.author{font-size:clamp(18px,2.2vw,25px);font-style:italic;color:#decfc2;margin-bottom:23px}
+.pitch{font-size:clamp(16px,1.7vw,20px);line-height:1.55;color:#eee3d8;max-width:700px;margin:0 0 24px}
+.tags{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:28px}
+.tag{border:1px solid rgba(211,168,92,.25);background:rgba(211,168,92,.07);color:#e1c688;border-radius:999px;padding:7px 10px;font:750 12px ui-sans-serif,system-ui,sans-serif}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px}
+.stat{padding:13px 12px;border:1px solid var(--line);background:rgba(255,255,255,.025);border-radius:14px}
+.stat .lab{font:750 10px ui-sans-serif,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.08em;color:#a89588;margin-bottom:5px}
+.stat .val{font:800 15px ui-sans-serif,system-ui,sans-serif;color:#f4e8dc;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.bottom{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-top:26px}
+.openlink{display:inline-flex;align-items:center;gap:8px;color:#e8c978;text-decoration:none;font:800 13px ui-sans-serif,system-ui,sans-serif}
+.status{color:#8f8076;font:650 11px ui-sans-serif,system-ui,sans-serif}
+.criteria{margin:18px auto 0;text-align:center;color:#8f8076;font:650 11px/1.5 ui-sans-serif,system-ui,sans-serif}
+.historyPanel{margin-top:18px;border:1px solid var(--line);border-radius:22px;background:rgba(255,255,255,.02);padding:18px}
+.historyTitle{display:flex;align-items:center;justify-content:space-between;gap:15px;font:900 12px ui-sans-serif,system-ui,sans-serif;text-transform:uppercase;letter-spacing:.1em;color:#baa89a}
+.history{display:flex;gap:10px;overflow:auto;padding:12px 0 2px;scrollbar-width:thin}
+.historyItem{min-width:190px;max-width:190px;border:1px solid var(--line);border-radius:13px;background:#170e13;padding:12px;text-align:left;color:var(--ink)}
+.historyItem b{display:block;font-size:14px;line-height:1.18;margin-bottom:5px}.historyItem span{font:650 11px ui-sans-serif,system-ui,sans-serif;color:#a9988a}
+@media(max-width:760px){
+ .shell{width:min(100% - 18px,1160px);padding-top:12px}
+ header{padding-bottom:16px}.lead{font-size:14px}
+ .card{grid-template-columns:1fr;min-height:0;border-radius:22px}
+ .coverWrap{min-height:380px}.coverShade{background:linear-gradient(0deg,rgba(28,17,24,.98),transparent 40%)}
+ .cover{width:190px}.coverFallback{width:190px}
+ .info{padding:24px 20px 27px;margin-top:-10px;position:relative}
+ .stats{grid-template-columns:repeat(2,1fr)}
+ .title{font-size:42px}
+}
+@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main class="shell">
+<header>
+  <div class="kicker">Sanja ska läsa en klassiker</div>
+  <h1>DEN MÖRKA<br><span>BOKKNAPPEN</span></h1>
+  <p class="lead">Bjubbs har gjort grovjobbet och samlat dessa jävla skitböcker åt dig. Alla uppfyller dina kriterier. Resten är ditt problem. ❤️📚</p>
+  <div class="controls">
+    <button id="randomBtn">🎲 GE MIG EN JÄVLA BOK</button>
+    <button class="smallBtn active" id="strictBtn">🦇 Extra gotisk/skräckig</button>
+  </div>
+</header>
+
+<section class="card" id="card" aria-live="polite">
+  <div class="coverWrap">
+    <div class="coverBlur" id="coverBlur"></div>
+    <div class="coverFallback" id="fallback"><div><b id="fbTitle">Tryck på knappen</b><small>SANJAS MÖRKA KLASSIKER</small></div></div>
+    <img class="cover" id="cover" alt="" hidden>
+    <div class="coverShade"></div>
+  </div>
+  <article class="info">
+    <div class="eyebrow"><span id="year">KLASSIKER</span><span class="dot"></span><span id="mood">GOTISKT & MÖRKT</span></div>
+    <h2 class="title" id="title">Redo när du är.</h2>
+    <div class="author" id="author">Sanja behöver bara trycka på den stora knappen.</div>
+    <p class="pitch" id="pitch">Appen väljer ur en handplockad lista och försöker sedan hämta omslag och extra metadata från Open Library. Om nätet strular fungerar själva boklotteriet ändå.</p>
+    <div class="tags" id="tags"><span class="tag">Klassiker</span><span class="tag">≤ 500 sidor</span><span class="tag">Mörk stämning</span></div>
+    <div class="stats">
+      <div class="stat"><div class="lab">Utgiven</div><div class="val" id="statYear">—</div></div>
+      <div class="stat"><div class="lab">Längd</div><div class="val" id="statPages">≤ 500</div></div>
+      <div class="stat"><div class="lab">Open Library</div><div class="val" id="statEditions">—</div></div>
+      <div class="stat"><div class="lab">Betyg</div><div class="val" id="statRating">—</div></div>
+    </div>
+    <div class="bottom">
+      <a class="openlink" id="openLink" href="https://openlibrary.org/" target="_blank" rel="noopener">Öppna på Open Library ↗</a>
+      <span class="status" id="status">Lokal katalog redo.</span>
+    </div>
+  </article>
+</section>
+
+<div class="criteria">Sidantal varierar mellan utgåvor. Appen använder ett ungefärligt sidantal från vanliga utgåvor och visar Open Library-data när den finns.</div>
+
+<section class="historyPanel">
+  <div class="historyTitle"><span>Senaste dragningarna</span><button class="smallBtn" id="clearBtn">Rensa</button></div>
+  <div class="history" id="history"><span class="status">Inga böcker dragna ännu.</span></div>
+</section>
+</main>
+
+<script>
+const BOOKS = [{"title": "Frankenstein", "author": "Mary Shelley", "year": 1818, "pages": 280, "tags": ["Gotik", "Skräck", "Science fiction"], "pitch": "En ung vetenskapsman skapar liv — och får leva med konsekvenserna. Mörk, sorglig och betydligt mer mänsklig än filmmonstret antyder.", "work": "OL598774W"}, {"title": "Dracula", "author": "Bram Stoker", "year": 1897, "pages": 420, "tags": ["Gotik", "Vampyrer", "Skräck"], "pitch": "Dagböcker, brev, blod och en greve som absolut inte respekterar personliga gränser. En av skräcklitteraturens stora grundpelare.", "work": "OL85892W"}, {"title": "The Strange Case of Dr Jekyll and Mr Hyde", "author": "Robert Louis Stevenson", "year": 1886, "pages": 144, "tags": ["Gotik", "Psykologisk skräck"], "pitch": "En respektabel läkare, ett fruktansvärt alter ego och en väldigt dålig idé om självexperiment.", "work": "OL24034W"}, {"title": "The Picture of Dorian Gray", "author": "Oscar Wilde", "year": 1890, "pages": 260, "tags": ["Gotik", "Dekadens", "Övernaturligt"], "pitch": "Evig ungdom får ett pris när ett porträtt börjar bära spåren av allt Dorian själv slipper visa.", "work": "OL262520W"}, {"title": "The Turn of the Screw", "author": "Henry James", "year": 1898, "pages": 160, "tags": ["Gotik", "Spöken", "Psykologisk skräck"], "pitch": "En guvernant, två märkliga barn och ett hus där någonting — kanske — är väldigt fel.", "work": "OL1029910W"}, {"title": "Carmilla", "author": "Sheridan Le Fanu", "year": 1872, "pages": 120, "tags": ["Gotik", "Vampyrer", "Skräck"], "pitch": "En hypnotisk vampyrberättelse som kom före Dracula och fortfarande känns märkligt modern.", "work": "OL1168084W"}, {"title": "The Haunting of Hill House", "author": "Shirley Jackson", "year": 1959, "pages": 246, "tags": ["Gotik", "Hemsökt hus", "Psykologisk skräck"], "pitch": "Fyra personer går in i ett ökänt hus för att undersöka det övernaturliga. Huset verkar ha egna planer.", "work": "OL2149662W"}, {"title": "We Have Always Lived in the Castle", "author": "Shirley Jackson", "year": 1962, "pages": 160, "tags": ["Gotik", "Mörk humor", "Psykologisk"], "pitch": "Två systrar lever isolerat efter en familjetragedi. Sedan kommer kusinen Charles och förstör lugnet.", "work": "OL2107682W"}, {"title": "The Woman in Black", "author": "Susan Hill", "year": 1983, "pages": 176, "tags": ["Gotik", "Spöken", "Skräck"], "pitch": "En ung jurist skickas till ett isolerat hus i dimman. Det går ungefär så bra som man kan ana.", "work": "OL14923430W"}, {"title": "The Monk", "author": "Matthew Gregory Lewis", "year": 1796, "pages": 340, "tags": ["Gotik", "Skräck", "Övernaturligt"], "pitch": "En skandalös gotisk urklassiker full av frestelser, hemligheter, våld och övernaturligt kaos.", "work": "OL82563W"}, {"title": "The Castle of Otranto", "author": "Horace Walpole", "year": 1764, "pages": 128, "tags": ["Gotik", "Övernaturligt"], "pitch": "Boken som i princip startade den gotiska romanen: slott, förbannelser, hemligheter och enorma hjälmar.", "work": "OL149102W"}, {"title": "The Mysteries of Udolpho", "author": "Ann Radcliffe", "year": 1794, "pages": 480, "tags": ["Gotik", "Mysterium"], "pitch": "Ruiner, hotfulla slott och psykologisk skräck i en av genrens mest inflytelserika romaner.", "work": "OL111965W"}, {"title": "Vathek", "author": "William Beckford", "year": 1786, "pages": 160, "tags": ["Gotik", "Mörk fantasy", "Övernaturligt"], "pitch": "En kalif jagar förbjuden kunskap och makt och upptäcker att demoniska genvägar har nackdelar.", "work": "OL118076W"}, {"title": "Melmoth the Wanderer", "author": "Charles Maturin", "year": 1820, "pages": 480, "tags": ["Gotik", "Faustisk skräck"], "pitch": "En man har sålt sin själ och försöker hitta någon annan som vill ta över avtalet. Obehagligt, stort och märkligt.", "work": "OL109291W"}, {"title": "The Vampyre", "author": "John Polidori", "year": 1819, "pages": 96, "tags": ["Gotik", "Vampyrer"], "pitch": "En kort, tidig vampyrklassiker som hjälpte till att skapa den aristokratiska vampyren vi känner igen idag.", "work": "OL138952W"}, {"title": "The Great God Pan", "author": "Arthur Machen", "year": 1894, "pages": 160, "tags": ["Skräck", "Weird fiction", "Övernaturligt"], "pitch": "Vetenskap öppnar en dörr mot något människan kanske aldrig borde ha sett.", "work": "OL1083176W"}, {"title": "The White People", "author": "Arthur Machen", "year": 1904, "pages": 96, "tags": ["Weird fiction", "Ockult", "Skräck"], "pitch": "En märklig dagbok leder in i förbjudna ritualer, folklore och kosmisk oro.", "work": "OL17670260W"}, {"title": "The House on the Borderland", "author": "William Hope Hodgson", "year": 1908, "pages": 220, "tags": ["Kosmisk skräck", "Gotik"], "pitch": "Ett gammalt hus står på gränsen till någonting fullständigt främmande. Tid och verklighet börjar ge upp.", "work": "OL1026296W"}, {"title": "The Boats of the 'Glen Carrig'", "author": "William Hope Hodgson", "year": 1907, "pages": 260, "tags": ["Skräck", "Hav", "Weird fiction"], "pitch": "Skeppsbrutna sjömän hittar en plats på havet som definitivt inte borde finnas.", "work": "OL1026300W"}, {"title": "The King in Yellow", "author": "Robert W. Chambers", "year": 1895, "pages": 320, "tags": ["Weird fiction", "Kosmisk skräck"], "pitch": "Sammanlänkade berättelser om en förbjuden pjäs som verkar göra något mycket dåligt med sina läsare.", "work": "OL1520873W"}, {"title": "The Willows", "author": "Algernon Blackwood", "year": 1907, "pages": 96, "tags": ["Weird fiction", "Natur-skräck"], "pitch": "Två resenärer slår läger på en ö i Donau. Landskapet känns snart mindre som natur och mer som en närvaro.", "work": "OL1169473W"}, {"title": "The Wendigo", "author": "Algernon Blackwood", "year": 1910, "pages": 96, "tags": ["Skräck", "Folklore", "Vildmark"], "pitch": "En expedition i den kanadensiska vildmarken möter något som inte borde följa mänskliga spår.", "work": "OL1169474W"}, {"title": "Ancient Sorceries", "author": "Algernon Blackwood", "year": 1908, "pages": 120, "tags": ["Övernaturligt", "Weird fiction"], "pitch": "En stillsam resenär stannar i en sömnig fransk stad där invånarna verkar dela en mycket gammal hemlighet.", "work": "OL1169467W"}, {"title": "The Room in the Tower", "author": "E. F. Benson", "year": 1912, "pages": 240, "tags": ["Spöken", "Skräck"], "pitch": "Klassiska brittiska spökhistorier med drömmar, hemsökta rum och obehag som kryper fram långsamt.", "work": "OL17888877W"}, {"title": "Ghost Stories of an Antiquary", "author": "M. R. James", "year": 1904, "pages": 260, "tags": ["Spöken", "Gotik", "Noveller"], "pitch": "Arkeologer och akademiker petar i gamla saker de borde ha lämnat i fred. Dåliga beslut, utmärkt skräck.", "work": "OL1165404W"}, {"title": "More Ghost Stories of an Antiquary", "author": "M. R. James", "year": 1911, "pages": 240, "tags": ["Spöken", "Gotik", "Noveller"], "pitch": "Fler lågmälda men elaka spökhistorier från en av genrens verkliga mästare.", "work": "OL1165406W"}, {"title": "The Phantom of the Opera", "author": "Gaston Leroux", "year": 1909, "pages": 300, "tags": ["Gotik", "Mysterium", "Romantik"], "pitch": "Under Parisoperan lever ett maskerat geni med storhetsvansinne, kärlekssorg och tveksam konflikthantering.", "work": "OL264772W"}, {"title": "The Hunchback of Notre-Dame", "author": "Victor Hugo", "year": 1831, "pages": 480, "tags": ["Gotik", "Historisk", "Tragedi"], "pitch": "Paris, Notre-Dame och människor vars öden dras mot katastrof. Mörkare och brutalare än de flesta adaptioner.", "work": "OL76833W"}, {"title": "The Invisible Man", "author": "H. G. Wells", "year": 1897, "pages": 180, "tags": ["Science fiction", "Skräck"], "pitch": "En vetenskapsman lyckas bli osynlig. Tyvärr gör framgången honom inte direkt trevligare.", "work": "OL52263W"}, {"title": "The Island of Doctor Moreau", "author": "H. G. Wells", "year": 1896, "pages": 190, "tags": ["Science fiction", "Skräck", "Body horror"], "pitch": "En skeppsbruten man hamnar på en ö där en läkare bedriver experiment som hade fått varje etikprövning att börja brinna.", "work": "OL52265W"}, {"title": "The Time Machine", "author": "H. G. Wells", "year": 1895, "pages": 140, "tags": ["Science fiction", "Mörk framtid"], "pitch": "En tidsresenär åker långt fram i framtiden och upptäcker att mänsklighetens utveckling tog en rätt obehaglig sväng.", "work": "OL52267W"}, {"title": "War of the Worlds", "author": "H. G. Wells", "year": 1898, "pages": 240, "tags": ["Science fiction", "Apokalyps", "Skräck"], "pitch": "Marsinvånare landar i England och mänskligheten inser snabbt att den inte längre är högst i näringskedjan.", "work": "OL52129W"}, {"title": "The Yellow Wallpaper", "author": "Charlotte Perkins Gilman", "year": 1892, "pages": 64, "tags": ["Psykologisk skräck", "Gotik"], "pitch": "En kvinna isoleras i ett rum för att vila och börjar se någonting bakom tapetens mönster.", "work": "OL1120934W"}, {"title": "Jane Eyre", "author": "Charlotte Brontë", "year": 1847, "pages": 490, "tags": ["Gotik", "Romantik", "Klassiker"], "pitch": "En självständig ung kvinna tar anställning på Thornfield Hall, där huset och dess ägare bär på mörka hemligheter.", "work": "OL27448W"}, {"title": "Wuthering Heights", "author": "Emily Brontë", "year": 1847, "pages": 400, "tags": ["Gotik", "Romantik", "Tragedi"], "pitch": "Besatt kärlek, hämnd, hedar och människor som är spektakulärt dåliga på att må bra.", "work": "OL21177W"}, {"title": "Rebecca", "author": "Daphne du Maurier", "year": 1938, "pages": 448, "tags": ["Gotik", "Psykologisk", "Mysterium"], "pitch": "En ung kvinna flyttar till Manderley, där hennes mans döda första hustru fortfarande tycks dominera allt.", "work": "OL46805W"}, {"title": "My Cousin Rachel", "author": "Daphne du Maurier", "year": 1951, "pages": 352, "tags": ["Gotik", "Mysterium", "Psykologisk"], "pitch": "Är Rachel charmig, oskyldig och missförstådd — eller någonting mycket farligare? Boken vägrar göra det lätt.", "work": "OL46806W"}, {"title": "Jamaica Inn", "author": "Daphne du Maurier", "year": 1936, "pages": 320, "tags": ["Gotik", "Mysterium", "Historisk"], "pitch": "En ung kvinna kommer till ett avlägset värdshus på Cornwalls hedar och upptäcker smugglare, våld och hemligheter.", "work": "OL46807W"}, {"title": "The Birds and Other Stories", "author": "Daphne du Maurier", "year": 1952, "pages": 320, "tags": ["Skräck", "Noveller", "Psykologisk"], "pitch": "Vardagen blir hotfull på du Mauriers typiskt eleganta sätt — inklusive fåglar som plötsligt bestämmer sig för att människan är problemet.", "work": "OL46808W"}, {"title": "The Lottery and Other Stories", "author": "Shirley Jackson", "year": 1949, "pages": 320, "tags": ["Skräck", "Noveller", "Psykologisk"], "pitch": "Vardagliga samhällen, artiga människor och en krypande känsla av att någonting är fullständigt fel.", "work": "OL2149660W"}, {"title": "The Sundial", "author": "Shirley Jackson", "year": 1958, "pages": 240, "tags": ["Gotik", "Mörk humor", "Apokalyps"], "pitch": "En dysfunktionell familj väntar på världens undergång i ett stort hus. Ovanligt rolig för att vara så obehaglig.", "work": "OL2149661W"}, {"title": "The Bloody Chamber", "author": "Angela Carter", "year": 1979, "pages": 160, "tags": ["Gotik", "Sagor", "Skräck"], "pitch": "Mörka, sensuella och brutala omskrivningar av klassiska sagor.", "work": "OL44320W"}, {"title": "Beloved", "author": "Toni Morrison", "year": 1987, "pages": 324, "tags": ["Gotik", "Historisk", "Spöken"], "pitch": "Ett hemsökt hus och ett ännu mer hemsökt förflutet i en intensiv roman om minne, trauma och kärlek.", "work": "OL50548W"}, {"title": "I Am Legend", "author": "Richard Matheson", "year": 1954, "pages": 160, "tags": ["Skräck", "Vampyrer", "Apokalyps"], "pitch": "Den siste mannen i en förändrad värld försöker förstå monstren utanför — och vad han själv har blivit för dem.", "work": "OL70196W"}, {"title": "Hell House", "author": "Richard Matheson", "year": 1971, "pages": 320, "tags": ["Hemsökt hus", "Skräck"], "pitch": "Ett team går in i ett hus med ett fruktansvärt rykte för att bevisa vad som finns där. Huset argumenterar tillbaka.", "work": "OL70198W"}, {"title": "Something Wicked This Way Comes", "author": "Ray Bradbury", "year": 1962, "pages": 300, "tags": ["Mörk fantasy", "Skräck"], "pitch": "En mystisk karneval kommer till en liten stad och erbjuder invånarna exakt det de önskar sig — vilket förstås är problemet.", "work": "OL103194W"}, {"title": "The October Country", "author": "Ray Bradbury", "year": 1955, "pages": 320, "tags": ["Skräck", "Noveller", "Mörk fantasy"], "pitch": "Makabra och märkliga berättelser där det vardagliga gärna lutar några grader åt mardröm.", "work": "OL103191W"}, {"title": "Fahrenheit 451", "author": "Ray Bradbury", "year": 1953, "pages": 194, "tags": ["Dystopi", "Mörk klassiker"], "pitch": "Brandmannen Montag bränner böcker tills han börjar undra varför de är så farliga att någon vill utplåna dem.", "work": "OL103123W"}, {"title": "The Body Snatchers", "author": "Jack Finney", "year": 1955, "pages": 216, "tags": ["Science fiction", "Paranoia", "Skräck"], "pitch": "Människor i en småstad ersätts av perfekta kopior. Frågan blir snabbt vem som fortfarande är sig själv.", "work": "OL458937W"}, {"title": "Rosemary's Baby", "author": "Ira Levin", "year": 1967, "pages": 245, "tags": ["Ockult", "Psykologisk skräck"], "pitch": "Ett ungt par flyttar in i ett fint hus med extremt engagerade grannar. Alldeles för engagerade.", "work": "OL464083W"}, {"title": "The Stepford Wives", "author": "Ira Levin", "year": 1972, "pages": 145, "tags": ["Skräck", "Satir", "Psykologisk"], "pitch": "Något är märkligt med de perfekta hemmafruarna i Stepford. Väldigt, väldigt märkligt.", "work": "OL464081W"}, {"title": "The Exorcist", "author": "William Peter Blatty", "year": 1971, "pages": 385, "tags": ["Skräck", "Demoner", "Ockult"], "pitch": "En flicka förändras på skrämmande sätt och hennes mamma söker hjälp där medicinen inte räcker till.", "work": "OL45804W"}, {"title": "The Other", "author": "Thomas Tryon", "year": 1971, "pages": 300, "tags": ["Psykologisk skräck", "Gotik"], "pitch": "Tvillingar, en lantlig idyll och en växande misstanke om att något fruktansvärt pågår.", "work": "OL17731684W"}, {"title": "Burnt Offerings", "author": "Robert Marasco", "year": 1973, "pages": 280, "tags": ["Hemsökt hus", "Skräck"], "pitch": "En familj hyr ett enormt hus billigt över sommaren. Priset visar sig vara betydligt högre än hyran.", "work": "OL17678273W"}, {"title": "The House Next Door", "author": "Anne Rivers Siddons", "year": 1978, "pages": 352, "tags": ["Hemsökt hus", "Psykologisk skräck"], "pitch": "Ett nybyggt hus i ett fint område tycks förstöra människorna som bor där — utan att behöva ett enda gammalt spöke.", "work": "OL1828153W"}, {"title": "The Elementals", "author": "Michael McDowell", "year": 1981, "pages": 224, "tags": ["Southern Gothic", "Skräck", "Hemsökt hus"], "pitch": "Två familjer semestrar vid tre hus på en isolerad strand. Ett av husen borde ingen gå in i.", "work": "OL15112227W"}, {"title": "The Woman in White", "author": "Wilkie Collins", "year": 1859, "pages": 480, "tags": ["Gotik", "Mysterium", "Sensation"], "pitch": "En kvinna i vitt på en mörk väg blir början på en enorm konspiration av identiteter, arv och lögner.", "work": "OL17378W"}, {"title": "Uncle Silas", "author": "Sheridan Le Fanu", "year": 1864, "pages": 480, "tags": ["Gotik", "Mysterium"], "pitch": "En ung arvtagerska skickas till sin mystiske farbror Silas och upptäcker varför alla kanske borde ha sagt nej till den planen.", "work": "OL1168086W"}, {"title": "The Italian", "author": "Ann Radcliffe", "year": 1797, "pages": 420, "tags": ["Gotik", "Romantik", "Mysterium"], "pitch": "Förbjuden kärlek, kloster, inkvisition och en av den gotiska romanens mest hotfulla skurkar.", "work": "OL111964W"}, {"title": "Northanger Abbey", "author": "Jane Austen", "year": 1817, "pages": 250, "tags": ["Gotisk parodi", "Klassiker", "Romantik"], "pitch": "En ung kvinna som läst för många gotiska romaner börjar misstänka mörka hemligheter överallt. Austen har väldigt roligt åt genren.", "work": "OL66554W"}, {"title": "A Christmas Carol", "author": "Charles Dickens", "year": 1843, "pages": 120, "tags": ["Spöken", "Klassiker", "Jul"], "pitch": "Scrooge får en nattlig intervention av tre spöken. Kort, mörk, varm och fortfarande väldigt läsbar.", "work": "OL15235W"}, {"title": "The Signal-Man", "author": "Charles Dickens", "year": 1866, "pages": 48, "tags": ["Spöken", "Skräck"], "pitch": "En järnvägsanställd hemsöks av en gestalt vars varningar verkar förebåda katastrofer.", "work": "OL15234W"}, {"title": "The Legend of Sleepy Hollow", "author": "Washington Irving", "year": 1820, "pages": 80, "tags": ["Gotik", "Folklore", "Spöken"], "pitch": "Ichabod Crane möter den huvudlöse ryttaren — eller åtminstone något som ser väldigt mycket ut som honom.", "work": "OL116178W"}, {"title": "Rip Van Winkle and Other Stories", "author": "Washington Irving", "year": 1819, "pages": 240, "tags": ["Folklore", "Gotik", "Noveller"], "pitch": "Amerikansk romantik och övernaturlig folklore med dimmiga skogar, märkliga möten och tid som beter sig illa.", "work": "OL116177W"}, {"title": "The Fall of the House of Usher and Other Tales", "author": "Edgar Allan Poe", "year": 1839, "pages": 320, "tags": ["Gotik", "Skräck", "Noveller"], "pitch": "Förfallna hus, levande begravningar, besatthet och död. Poe är ungefär hela gotikens verktygslåda på en gång.", "work": "OL41078W"}, {"title": "The Narrative of Arthur Gordon Pym", "author": "Edgar Allan Poe", "year": 1838, "pages": 280, "tags": ["Skräck", "Hav", "Äventyr"], "pitch": "Ett sjöäventyr blir allt mer bisarrt och mardrömslikt ju längre bort från civilisationen det kommer.", "work": "OL41079W"}, {"title": "The Black Cat and Other Stories", "author": "Edgar Allan Poe", "year": 1843, "pages": 220, "tags": ["Skräck", "Gotik", "Noveller"], "pitch": "Skuld, vansinne, mord och en katt som verkligen inte tänker låta någonting glömmas.", "work": "OL41080W"}, {"title": "The Masque of the Red Death and Other Stories", "author": "Edgar Allan Poe", "year": 1842, "pages": 240, "tags": ["Gotik", "Skräck", "Noveller"], "pitch": "Pest, dekadens och död som inte låter sig stoppas av låsta portar eller fina masker.", "work": "OL41081W"}, {"title": "The Horla", "author": "Guy de Maupassant", "year": 1887, "pages": 96, "tags": ["Psykologisk skräck", "Övernaturligt"], "pitch": "En man börjar tro att en osynlig varelse lever nära honom och gradvis tar kontroll över hans liv.", "work": "OL154095W"}, {"title": "The Queen of Spades", "author": "Alexander Pushkin", "year": 1834, "pages": 80, "tags": ["Gotik", "Övernaturligt", "Kortroman"], "pitch": "Besatthet av en hemlig vinnande kortkombination leder till spöken, vansinne och ett mycket dåligt pokerbeslut.", "work": "OL19406W"}, {"title": "The Viy", "author": "Nikolai Gogol", "year": 1835, "pages": 80, "tags": ["Folklore", "Skräck", "Övernaturligt"], "pitch": "En student tvingas vaka över en död kvinna i tre nätter. Hon tänker inte ligga still.", "work": "OL16132W"}, {"title": "The Devil's Elixirs", "author": "E. T. A. Hoffmann", "year": 1815, "pages": 320, "tags": ["Gotik", "Doppelgänger", "Övernaturligt"], "pitch": "En munk, en mystisk dryck och en identitetskris som eskalerar till ren gotisk feberdröm.", "work": "OL1168767W"}, {"title": "The Sandman", "author": "E. T. A. Hoffmann", "year": 1816, "pages": 80, "tags": ["Gotik", "Uncanny", "Skräck"], "pitch": "Barndomstrauma, automater och frågan om vad som egentligen är mänskligt.", "work": "OL1168764W"}, {"title": "The Private Memoirs and Confessions of a Justified Sinner", "author": "James Hogg", "year": 1824, "pages": 320, "tags": ["Gotik", "Psykologisk", "Doppelgänger"], "pitch": "Religion, mord och en mystisk dubbelgångare i en berättelse som fortfarande känns förvånansvärt modern.", "work": "OL443434W"}, {"title": "The Beetle", "author": "Richard Marsh", "year": 1897, "pages": 350, "tags": ["Gotik", "Skräck", "Mystik"], "pitch": "Samma år som Dracula kom denna viktorianska monsterroman om en formskiftande, hypnotisk varelse i London.", "work": "OL1515824W"}, {"title": "The Jewel of Seven Stars", "author": "Bram Stoker", "year": 1903, "pages": 320, "tags": ["Gotik", "Mumier", "Skräck"], "pitch": "Arkeologi och ockultism går ihop i ett experiment som vill återuppväcka en egyptisk drottning.", "work": "OL85895W"}, {"title": "The Lair of the White Worm", "author": "Bram Stoker", "year": 1911, "pages": 220, "tags": ["Gotik", "Monster", "Skräck"], "pitch": "En av Stokers märkligaste böcker: gammal ondska, herrgårdar och en gigantisk vit orm.", "work": "OL85896W"}, {"title": "The Were-Wolf", "author": "Clemence Housman", "year": 1896, "pages": 100, "tags": ["Gotik", "Varulvar", "Folklore"], "pitch": "En vacker främling anländer till ett nordiskt hushåll. Varning: hon har tänder.", "work": "OL15283770W"}, {"title": "The Lost Stradivarius", "author": "J. Meade Falkner", "year": 1895, "pages": 220, "tags": ["Gotik", "Spöken", "Ockult"], "pitch": "En gammal fiol verkar bära på mer än musik och drar sin ägare mot ett mörkt förflutet.", "work": "OL1120407W"}, {"title": "The Open Door", "author": "Margaret Oliphant", "year": 1882, "pages": 90, "tags": ["Spöken", "Gotik"], "pitch": "Ett barns sjukdom kopplas till en ruin där en röst hörs ropa om och om igen.", "work": "OL17528218W"}, {"title": "The Beckoning Fair One", "author": "Oliver Onions", "year": 1911, "pages": 100, "tags": ["Spöken", "Psykologisk skräck"], "pitch": "En författare flyttar in i ett gammalt hus och blir allt mindre intresserad av världen utanför — av en anledning.", "work": "OL15631958W"}, {"title": "The House of the Vampire", "author": "George Sylvester Viereck", "year": 1907, "pages": 130, "tags": ["Gotik", "Vampyrer", "Psykologisk"], "pitch": "En vampyrroman där blod inte är det enda som kan sugas ur en människa.", "work": "OL15682065W"}, {"title": "The Sorrows of Satan", "author": "Marie Corelli", "year": 1895, "pages": 480, "tags": ["Gotik", "Faustisk", "Övernaturligt"], "pitch": "En fattig författare får pengar och en ny vän som råkar vara misstänkt perfekt. Titeln avslöjar ungefär vart det är på väg.", "work": "OL1496037W"}, {"title": "The Golem", "author": "Gustav Meyrink", "year": 1915, "pages": 300, "tags": ["Gotik", "Mystik", "Weird fiction"], "pitch": "Prags judiska kvarter blir scen för identitetsförvirring, mystik och den legendariska Golem.", "work": "OL586081W"}, {"title": "The Other Side", "author": "Alfred Kubin", "year": 1909, "pages": 250, "tags": ["Weird fiction", "Dystopi", "Gotik"], "pitch": "En illustratör bjuds till ett drömrike som långsamt förvandlas till en surrealistisk katastrof.", "work": "OL1799560W"}, {"title": "The Trial", "author": "Franz Kafka", "year": 1925, "pages": 260, "tags": ["Mörk klassiker", "Absurdism", "Paranoia"], "pitch": "Josef K. arresteras utan att få veta varför och sugs in i ett rättssystem som verkar byggt av mardrömslogik.", "work": "OL24863W"}, {"title": "The Metamorphosis", "author": "Franz Kafka", "year": 1915, "pages": 100, "tags": ["Mörk klassiker", "Body horror", "Absurdism"], "pitch": "Gregor Samsa vaknar som en enorm insekt. Familjedynamiken förbättras inte.", "work": "OL24858W"}, {"title": "Heart of Darkness", "author": "Joseph Conrad", "year": 1899, "pages": 160, "tags": ["Mörk klassiker", "Psykologisk"], "pitch": "En resa uppför Kongofloden blir en nedstigning i kolonial brutalitet och mänskligt mörker.", "work": "OL86320W"}, {"title": "Lord of the Flies", "author": "William Golding", "year": 1954, "pages": 224, "tags": ["Mörk klassiker", "Psykologisk", "Överlevnad"], "pitch": "Skolpojkar strandar på en ö och bygger ett samhälle. Det håller ungefär lika bra som man fruktar.", "work": "OL89366W"}, {"title": "The Collector", "author": "John Fowles", "year": 1963, "pages": 288, "tags": ["Psykologisk skräck", "Mörk klassiker"], "pitch": "En ensam man kidnappar en ung kvinna och försöker göra henne till en del av sin privata samling.", "work": "OL46104W"}, {"title": "The Wasp Factory", "author": "Iain Banks", "year": 1984, "pages": 244, "tags": ["Psykologisk skräck", "Mörk", "Gotisk"], "pitch": "En isolerad tonåring lever efter egna ritualer på en skotsk ö. Sedan kommer beskedet att hans bror är på väg hem.", "work": "OL158871W"}, {"title": "Perfume", "author": "Patrick Süskind", "year": 1985, "pages": 263, "tags": ["Historisk", "Mörk", "Skräck"], "pitch": "En man med ett extraordinärt luktsinne blir besatt av att skapa den perfekta doften. Ingredienserna är ett problem.", "work": "OL274993W"}, {"title": "The Bloody Countess", "author": "Valentine Penrose", "year": 1962, "pages": 220, "tags": ["Gotik", "Historisk", "Skräck"], "pitch": "En surrealistisk och mörk skildring av legenden om Erzsébet Báthory.", "work": "OL1987011W"}, {"title": "The Castle", "author": "Franz Kafka", "year": 1926, "pages": 352, "tags": ["Mörk klassiker", "Absurdism", "Gotisk känsla"], "pitch": "En lantmätare försöker få tillgång till ett mystiskt slott och fastnar i ett administrativt universum utan utgång.", "work": "OL24861W"}, {"title": "A Clockwork Orange", "author": "Anthony Burgess", "year": 1962, "pages": 192, "tags": ["Dystopi", "Mörk klassiker"], "pitch": "Våld, fri vilja och statlig kontroll berättat med ett språk som först känns främmande och sedan fastnar i huvudet.", "work": "OL71565W"}, {"title": "The Day of the Triffids", "author": "John Wyndham", "year": 1951, "pages": 240, "tags": ["Apokalyps", "Science fiction", "Skräck"], "pitch": "Nästan hela mänskligheten blir blind samtidigt som farliga växter får ett gyllene tillfälle.", "work": "OL85925W"}, {"title": "The Midwich Cuckoos", "author": "John Wyndham", "year": 1957, "pages": 224, "tags": ["Science fiction", "Skräck", "Uncanny"], "pitch": "Alla kvinnor i en liten by blir gravida samtidigt efter en märklig händelse. Barnen är inte riktigt som andra barn.", "work": "OL85926W"}, {"title": "The Chrysalids", "author": "John Wyndham", "year": 1955, "pages": 208, "tags": ["Dystopi", "Science fiction", "Mörk"], "pitch": "I ett samhälle besatt av genetisk renhet måste några barn dölja att de kan tala med varandra i tanken.", "work": "OL85924W"}, {"title": "The Invention of Morel", "author": "Adolfo Bioy Casares", "year": 1940, "pages": 120, "tags": ["Weird fiction", "Mysterium", "Science fiction"], "pitch": "En flykting på en ö ser människor som tycks upprepa samma dagar. Förklaringen är vackrare och hemskare än väntat.", "work": "OL274443W"}, {"title": "The Hearing Trumpet", "author": "Leonora Carrington", "year": 1974, "pages": 224, "tags": ["Surrealism", "Gotik", "Mörk humor"], "pitch": "En 92-årig kvinna hamnar på ett bisarrt äldreboende och världen går sedan glatt sönder på alla möjliga sätt.", "work": "OL468989W"}, {"title": "The House of the Seven Gables", "author": "Nathaniel Hawthorne", "year": 1851, "pages": 344, "tags": ["Gotik", "Familjeförbannelse"], "pitch": "Ett gammalt hus, en gammal familj och en ännu äldre förbannelse som vägrar släppa taget.", "work": "OL45526W"}, {"title": "Rappaccini's Daughter", "author": "Nathaniel Hawthorne", "year": 1844, "pages": 80, "tags": ["Gotik", "Mörk romantik"], "pitch": "En ung man förälskar sig i dottern till en vetenskapsman vars trädgård är lika vacker som livsfarlig.", "work": "OL45528W"}, {"title": "The Blithedale Romance", "author": "Nathaniel Hawthorne", "year": 1852, "pages": 300, "tags": ["Mörk romantik", "Gotisk"], "pitch": "Ett idealistiskt kollektiv blir scen för manipulation, hemligheter och känslomässig katastrof.", "work": "OL45527W"}, {"title": "The Lifted Veil", "author": "George Eliot", "year": 1859, "pages": 96, "tags": ["Gotik", "Övernaturligt", "Psykologisk"], "pitch": "En man kan se in i framtiden och läsa andra människors tankar. Det visar sig vara en usel superkraft.", "work": "OL116584W"}, {"title": "The Canterville Ghost", "author": "Oscar Wilde", "year": 1887, "pages": 96, "tags": ["Spöken", "Gotisk komedi"], "pitch": "En amerikansk familj köper ett engelskt slott och vägrar bli imponerad av spöket som följer med.", "work": "OL262517W"}, {"title": "The Ballad of the Sad Café", "author": "Carson McCullers", "year": 1951, "pages": 160, "tags": ["Southern Gothic", "Mörk klassiker"], "pitch": "Kärlek, ensamhet och märkliga relationer i en liten sydstatsstad med en alldeles egen logik.", "work": "OL71431W"}];
+const $ = s => document.querySelector(s);
+const els = {
+ btn:$("#randomBtn"), strict:$("#strictBtn"), cover:$("#cover"), blur:$("#coverBlur"), fallback:$("#fallback"),
+ fbTitle:$("#fbTitle"), title:$("#title"), author:$("#author"), pitch:$("#pitch"), tags:$("#tags"), year:$("#year"),
+ mood:$("#mood"), statYear:$("#statYear"), statPages:$("#statPages"), statEditions:$("#statEditions"), statRating:$("#statRating"),
+ open:$("#openLink"), status:$("#status"), history:$("#history"), clear:$("#clearBtn")
+};
+let strict = true;
+let lastIndex = -1;
+let history = JSON.parse(localStorage.getItem("sanjaBookHistory") || "[]");
+
+const strictWords = ["Gotik","Skräck","Vampyrer","Spöken","Hemsökt hus","Kosmisk skräck","Psykologisk skräck","Ockult","Weird fiction","Southern Gothic","Body horror","Monster","Varulvar"];
+function pool(){ return strict ? BOOKS.filter(b => b.tags.some(t=>strictWords.includes(t))) : BOOKS; }
+function cleanWorkKey(k){ return k ? (k.startsWith("/") ? k : "/works/"+k) : ""; }
+function coverUrl(id, size="L"){ return `https://covers.openlibrary.org/b/id/${id}-${size}.jpg?default=false`; }
+
+function choose(){
+  const p=pool();
+  let i=Math.floor(Math.random()*p.length);
+  if(p.length>1 && p[i].title===BOOKS[lastIndex]?.title) i=(i+1)%p.length;
+  const b=p[i];
+  lastIndex=BOOKS.findIndex(x=>x.title===b.title && x.author===b.author);
+  render(b);
+}
+
+async function render(b){
+  els.btn.disabled=true;
+  els.btn.textContent="🕯️ LETAR I MÖRKRET…";
+  els.title.textContent=b.title; els.fbTitle.textContent=b.title; els.author.textContent="av "+b.author;
+  els.pitch.textContent=b.pitch; els.year.textContent=b.year; els.mood.textContent=b.tags[0] || "MÖRK KLASSIKER";
+  els.statYear.textContent=b.year; els.statPages.textContent="ca "+b.pages+" s.";
+  els.statEditions.textContent="hämtar…"; els.statRating.textContent="hämtar…";
+  els.tags.innerHTML=b.tags.concat(["≤ 500 sidor"]).map(t=>`<span class="tag">${escapeHtml(t)}</span>`).join("");
+  els.cover.hidden=true; els.fallback.style.display="flex"; els.blur.style.backgroundImage="";
+  const wk=cleanWorkKey(b.work);
+  els.open.href=wk ? "https://openlibrary.org"+wk : "https://openlibrary.org/search?q="+encodeURIComponent(b.title+" "+b.author);
+  els.status.textContent="Hämtar extra info från Open Library…";
+  pushHistory(b);
+  try{
+    const q = new URLSearchParams({
+      title:b.title, author:b.author,
+      fields:"key,title,author_name,first_publish_year,cover_i,edition_count,ratings_average,ratings_count,number_of_pages_median,language",
+      limit:"5"
+    });
+    const r=await fetch("https://openlibrary.org/search.json?"+q.toString());
+    if(!r.ok) throw new Error("API "+r.status);
+    const data=await r.json();
+    let d=data.docs?.find(x=>x.cover_i) || data.docs?.[0];
+    if(d){
+      if(d.key) els.open.href="https://openlibrary.org"+(d.key.startsWith("/")?d.key:"/works/"+d.key);
+      if(d.cover_i){
+        const u=coverUrl(d.cover_i,"L");
+        els.cover.src=u; els.cover.alt=`Omslag till ${b.title}`;
+        els.cover.onload=()=>{els.cover.hidden=false;els.fallback.style.display="none";els.blur.style.backgroundImage=`url("${coverUrl(d.cover_i,"M")}")`;};
+        els.cover.onerror=()=>{els.cover.hidden=true;els.fallback.style.display="flex";};
+      }
+      els.statEditions.textContent=d.edition_count ? d.edition_count+" st" : "—";
+      if(d.ratings_average) els.statRating.textContent=d.ratings_average.toFixed(1)+"/5";
+      else els.statRating.textContent="—";
+      if(d.number_of_pages_median && d.number_of_pages_median <= 550){
+        els.statPages.textContent="ca "+Math.round(d.number_of_pages_median)+" s.";
+      }
+      els.status.textContent="Extra metadata hämtad ✓";
+    } else {
+      els.statEditions.textContent="—"; els.statRating.textContent="—";
+      els.status.textContent="Ingen träff hos Open Library — lokal info visas.";
+    }
+  }catch(e){
+    els.statEditions.textContent="—"; els.statRating.textContent="—";
+    els.status.textContent="Offlineläge — lokal info visas.";
+  }finally{
+    els.btn.disabled=false; els.btn.textContent="🎲 GE MIG EN ANNAN JÄVLA BOK";
+  }
+}
+function pushHistory(b){
+  history=history.filter(x=>x.title!==b.title);
+  history.unshift({title:b.title,author:b.author,year:b.year});
+  history=history.slice(0,10);
+  localStorage.setItem("sanjaBookHistory",JSON.stringify(history));
+  renderHistory();
+}
+function renderHistory(){
+  if(!history.length){els.history.innerHTML='<span class="status">Inga böcker dragna ännu.</span>';return;}
+  els.history.innerHTML=history.map(x=>`<button class="historyItem" data-title="${escapeAttr(x.title)}"><b>${escapeHtml(x.title)}</b><span>${escapeHtml(x.author)} · ${x.year}</span></button>`).join("");
+  els.history.querySelectorAll("button").forEach(btn=>btn.onclick=()=>{
+    const b=BOOKS.find(x=>x.title===btn.dataset.title); if(b) render(b);
+  });
+}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
+function escapeAttr(s){return escapeHtml(s);}
+els.btn.onclick=choose;
+els.strict.onclick=()=>{strict=!strict;els.strict.classList.toggle("active",strict);els.strict.textContent=strict?"🦇 Extra gotisk/skräckig":"📚 Alla mörka klassiker";};
+els.clear.onclick=()=>{history=[];localStorage.removeItem("sanjaBookHistory");renderHistory();};
+renderHistory();
+</script>
+</body></html>
